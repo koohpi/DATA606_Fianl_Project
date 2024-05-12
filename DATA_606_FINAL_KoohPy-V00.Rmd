@@ -1368,8 +1368,8 @@ heatmap(confusion_matrix,
 
 
 # Heatmap
-heatmap_data <- as.data.frame(as.table(conf_matrix))
-heatmap <- ggplot(heatmap_data, aes(x = Prediction, y = Reference, fill = Freq)) +
+heatmap_data <- as.data.frame(as.table(confusion_matrix))
+heatmap <- ggplot(heatmap_data, aes(x = predicted_class, y = Var2, fill = Freq)) +
   geom_tile(color = "white") +
   scale_fill_gradient(low = "lightgreen", high = "darkgreen") +
   labs(x = "Predicted", y = "Actual", fill = "Frequency") +
@@ -1515,7 +1515,10 @@ heatmap <- ggplot(heatmap_data, aes(x = Predicted, y = Actual, fill = Freq)) +
 
 print(heatmap)
 
-
+# Plot ROC curve
+roc_data <- roc(test_data$COD, predictions)
+#plot(roc_data, main = "ROC Curve", col = "blue")
+plot(roc_data, print.auc = TRUE, auc.polygon = TRUE, max.auc.polygon = TRUE, grid = TRUE, grid.col = "lightgray", main = "ROC Curve")
 ```
 
 ## Conclusion:
